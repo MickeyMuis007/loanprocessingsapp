@@ -24,4 +24,7 @@ The system produces three different reports:
     -A daily report that will keep track of all daily transaction that as taken place
     -A monthly report that keeps track of the whole months transaction and processes that took place
     
+### UML Diagram
+![alt text](https://github.com/MickeyMuis007/loanprocessingsapp/blob/master/UML.jpg)
+
 
