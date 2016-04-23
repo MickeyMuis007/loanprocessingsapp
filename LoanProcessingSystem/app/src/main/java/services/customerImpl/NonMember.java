@@ -9,7 +9,10 @@ import services.CustomerService;
 public class NonMember implements CustomerService {
     @Override
     public Customer getCustomer() {
-        Customer customer = new Customer("Non Member");
+        Customer customer = new Customer
+                .Builder()
+                .type("Non Member")
+                .build();
         return customer;
     }
 }

@@ -10,11 +10,21 @@ import services.SecurityService;
 public class InstantLoanCheck implements SecurityService {
     @Override
     public SecurityCheck process(Customer customer) {
-        SecurityCheck securityCheck = new SecurityCheck(customer);
-        if(customer.getMonthlyIncome() > 2000)
-            customer.setInstantApproval(true);
-        else
-            customer.setInstantApproval(false);
-        return securityCheck;
+
+        if(customer.getMonthlyIncome() > 2000){
+            customer = new Customer
+                    .Builder()
+                    .copy(customer)
+                    .instantApproval(true)
+                    .build();
+        }
+        else{
+            customer = new Customer
+                    .Builder()
+                    .copy(customer)
+                    .instantApproval(false)
+                    .build();
+        }
+        return new SecurityCheck(customer);
     }
 }

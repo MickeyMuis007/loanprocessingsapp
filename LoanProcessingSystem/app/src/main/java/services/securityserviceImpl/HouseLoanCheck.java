@@ -10,11 +10,20 @@ import services.SecurityService;
 public class HouseLoanCheck implements SecurityService {
     @Override
     public SecurityCheck process(Customer customer) {
-        SecurityCheck securityCheck = new SecurityCheck(customer);
-        if(customer.getMonthlyIncome() > 10000)
-            customer.setHouseApproval(true);
-        else
-            customer.setHouseApproval(false);
-        return securityCheck;
+        if(customer.getMonthlyIncome() > 10000){
+            customer = new Customer
+                    .Builder()
+                    .copy(customer)
+                    .houseApproval(true)
+                    .build();
+        }
+        else {
+            customer = new Customer
+                    .Builder()
+                    .copy(customer)
+                    .houseApproval(false)
+                    .build();
+        }
+        return new SecurityCheck(customer);
     }
 }

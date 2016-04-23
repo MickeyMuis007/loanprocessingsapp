@@ -9,47 +9,24 @@ public class FullName {
     private String middleName;
     private String lastName;
 
-    public FullName(String name, String middleName, String lastName) {
-        this.name = name;
-        this.middleName = middleName;
-        this.lastName = lastName;
-    }
-
-    public FullName(String name, String lastName) {
-        this.name = name;
-        this.lastName = lastName;
-        this.middleName = "";
-    }
-
-    public FullName(String name) {
-        this.name = name;
-        this.lastName = "";
-        this.middleName = "";
+    private FullName(){}
+    public FullName(Builder builder){
+        this.name = builder.name;
+        this.middleName = builder.middleName;
+        this.lastName = builder.lastName;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getMiddleName() {
         return middleName;
     }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
     public String toString(){
         if(!middleName.equals(""))
             return name + ", " + middleName + ", " + lastName;
@@ -58,5 +35,37 @@ public class FullName {
         else if(!name.equals(null))
             return name;
         return null;
+    }
+    public static class Builder{
+        private String name;
+        private String middleName;
+        private String lastName;
+
+        public Builder(){
+            name = "";
+            middleName = "";
+            lastName = "";
+        }
+        public Builder middleName(String value){
+            this.middleName = value;
+            return this;
+        }
+        public Builder name(String value){
+            this.name = value;
+            return this;
+        }
+        public Builder lastName(String value){
+            this.lastName = value;
+            return this;
+        }
+        public Builder copy(FullName value){
+            this.name = value.name;
+            this.middleName = value.middleName;
+            this.lastName = value.lastName;
+            return this;
+        }
+        public FullName build(){
+            return new FullName(this);
+        }
     }
 }

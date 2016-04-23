@@ -10,11 +10,20 @@ import services.SecurityService;
 public class CarLoanCheck implements SecurityService {
     @Override
     public SecurityCheck process(Customer customer) {
-        SecurityCheck securityCheck = new SecurityCheck(customer);
-        if(customer.getMonthlyIncome() > 3000)
-            customer.setCarApproval(true);
-        else
-            customer.setCarApproval(false);
-        return securityCheck;
+        if(customer.getMonthlyIncome() > 3000) {
+            customer = new Customer
+                    .Builder()
+                    .copy(customer)
+                    .carApproval(true)
+                    .build();
+        }
+        else{
+            customer = new Customer
+                    .Builder()
+                    .copy(customer)
+                    .carApproval(false)
+                    .build();
+        }
+        return new SecurityCheck(customer);
     }
 }

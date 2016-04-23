@@ -10,18 +10,27 @@ import services.LoanService;
 public class HouseLoan implements LoanService {
     @Override
     public Loan process(Customer customer, String paymentOption, int numberOfPayments) {
-        Loan loan = new Loan("House Loan",12);
-        loan.setCustomer(customer);
-        if(loan.getCustomer().isHouseApproval()){
-            loan.setApproved(true);
-            loan.setLoanAmount(loan.getCustomer().getRequestAmount());
-            loan.setDuration(paymentOption, numberOfPayments);
-            return loan;
+        if(customer.isHouseApproval()){
+            return new Loan
+                    .Builder()
+                    .type("House Loan")
+                    .interest(12)
+                    .customer(customer)
+                    .approved(true)
+                    .loanAmount(customer.getRequestAmount())
+                    .numberOfPayments(paymentOption, numberOfPayments)
+                    .build();
+
         }
         else
         {
-            loan.setApproved(false);
-            return loan;
+            return new Loan
+                    .Builder()
+                    .type("House Loan")
+                    .interest(12)
+                    .customer(customer)
+                    .approved(false)
+                    .build();
         }
     }
 }

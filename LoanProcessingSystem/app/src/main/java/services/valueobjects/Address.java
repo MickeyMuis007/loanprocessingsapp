@@ -8,80 +8,90 @@ public class Address {
     private String street;
     private String suburb;
     private String city;
-    private String country;
     private int postalCode;
 
+    private Address(){}
 
-    public Address(int no, String street, String suburb, String city, String country, int postalCode) {
-        this.no = no;
-        this.street = street;
-        this.suburb = suburb;
-        this.city = city;
-        this.country = country;
-        this.postalCode = postalCode;
-    }
-
-    public Address(int no, String street, String city, String country, int postalCode) {
-        this.no = no;
-        this.street = street;
-        this.city = city;
-        this.country = country;
-        this.postalCode = postalCode;
-        this.suburb = "";
+    public Address(Builder builder)
+    {
+        this.no = builder.no;
+        this.street = builder.street;
+        this.suburb = builder.suburb;
+        this.city = builder.city;
+        this.postalCode =builder.postalCode;
     }
 
     public int getNo() {
         return no;
     }
 
-    public void setNo(int no) {
-        this.no = no;
-    }
-
     public String getStreet() {
         return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     public String getSuburb() {
         return suburb;
     }
 
-    public void setSuburb(String suburb) {
-        this.suburb = suburb;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
-    }
-
     public String toString(){
         if(!suburb.equals(""))
-            return no + ", " + street + ", " + suburb + ", " + city + ", " + country + ", " + postalCode;
+            return no + ", " + street + ", " + suburb + ", " + city + ", " + postalCode;
         else
-            return no + ", " + street + ", " + city + ", " + country + ", " + postalCode;
+            return no + ", " + street + ", " + city + ", " + postalCode;
+    }
+    public static class Builder
+    {
+        private int no;
+        private String street;
+        private String suburb;
+        private String city;
+        private int postalCode;
+
+        public Builder(){
+            no = 0;
+            street = "";
+            suburb = "";
+            city = "";
+            postalCode = 0;
+        }
+        public Builder no(int value){
+            this.no = value;
+            return this;
+        }
+        public Builder street(String value){
+            this.street = value;
+            return this;
+        }
+        public Builder suburb(String value){
+            this.suburb = value;
+            return this;
+        }
+        public Builder city(String value){
+            this.city = value;
+            return this;
+        }
+        public Builder postalCode(int value){
+            this.postalCode = value;
+            return this;
+        }
+        public Builder copy(Address value){
+            this.no = value.no;
+            this.street = value.street;
+            this.suburb = value.suburb;
+            this.city = value.city;
+            this.postalCode =value.postalCode;
+            return this;
+        }
+        public Address build(){
+            return new Address(this);
+        }
     }
 }

@@ -9,8 +9,12 @@ import services.BranchService;
 public class Goodwood implements BranchService {
     @Override
     public Branch getBranch() {
-        Branch branch = new Branch("Goodwood");
-        branch.setAddress(7,"Alice str","Goodwood","South Africa",7640);
+        Branch branch = new Branch
+                .Builder()
+                .name("Goodwood")
+                .address(7,"Alice str","Goodwood",7640)
+                .branchNo(3)
+                .build();
         return branch;
     }
 }

@@ -14,60 +14,140 @@ public class User {
     private Address address;
     private Branch branch;
 
-    public User(String type) {
-        this.type = type;
+    private User(){}
+    public User(Builder builder) {
+        this.userNo = builder.userNo;
+        this.type = builder.type;
+        this.fullName = builder.fullName;
+        this.address = builder.address;
+        this.branch = builder.branch;
     }
 
     public Branch getBranch() {
         return branch;
     }
 
-    public void setBranch(Branch branch) {
-        this.branch = branch;
-    }
-
     public long getUserNo() {
         return userNo;
-    }
-
-    public void setUserNo(long userNo) {
-        this.userNo = userNo;
     }
 
     public String getType() {
         return type;
     }
 
-
-
     public FullName getFullName() {
         return fullName;
-    }
-
-    public void setFullName(FullName fullName) {
-        this.fullName = fullName;
-    }
-    public void setFullName(String name, String middleName, String lastName){
-        fullName = new FullName(name,middleName,lastName);
-    }
-    public void setFullName(String name, String lastName){
-        fullName = new FullName(name,lastName);
-    }
-    public void setFullName(String name){
-        fullName = new FullName(name);
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public static class Builder{
+        private long userNo;
+        private String type;
+        private FullName fullName;
+        private Address address;
+        private Branch branch;
+
+        public Builder(){
+            userNo = 0;
+            type = "";
+            fullName = null;
+            address = null;
+            branch = null;
+        }
+        public Builder userNo(long value){
+            this.userNo = value;
+            return this;
+        }
+        public Builder type(String value){
+            this.type = value;
+            return this;
+        }
+        public Builder fullName(String valueName, String valueMiddleName, String valueLastName){
+            this.fullName = new FullName
+                    .Builder()
+                    .name(valueName)
+                    .middleName(valueMiddleName)
+                    .lastName(valueLastName)
+                    .build();
+            return this;
+        }
+        public Builder fullName(String valueName, String valueLastName){
+            this.fullName = new FullName
+                    .Builder()
+                    .name(valueName)
+                    .lastName(valueLastName)
+                    .build();
+            return this;
+        }
+        public Builder fullName(String valueName){
+            this.fullName = new FullName
+                    .Builder()
+                    .name(valueName)
+                    .build();
+            return this;
+        }
+        public Builder fullName(FullName value){
+            this.fullName = value;
+            return this;
+        }
+        public Builder address(int no, String street, String suburb, String city, int postalCode){
+            address = new Address
+                    .Builder()
+                    .no(no)
+                    .street(street)
+                    .suburb(suburb)
+                    .city(city)
+                    .postalCode(postalCode)
+                    .build();
+            return this;
+        }
+        public Builder address(int no, String street, String city, int postalCode){
+            address = new Address
+                    .Builder()
+                    .no(no)
+                    .street(street)
+                    .city(city)
+                    .postalCode(postalCode)
+                    .build();
+            return this;
+        }
+        public Builder address(Address value){
+            this.address = value;
+            return this;
+        }
+        public Builder branch(Branch value){
+            this.branch = value;
+            return this;
+        }
+        public Builder copy(User value){
+            this.userNo = value.userNo;
+            this.type = value.type;
+            this.fullName = value.fullName;
+            this.address = value.address;
+            this.branch =value.branch;
+            return this;
+        }
+        public User build(){
+            return new User(this);
+        }
     }
-    public void setAddress(int no, String street, String suburb, String city, String country, int postalCode){
-        address = new Address(no,street,suburb,city,country,postalCode);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return userNo == user.userNo;
+
     }
-    public void setAddress(int no, String street, String city, String country, int postalCode){
-        address = new Address(no,street,city,country,postalCode);
+
+    @Override
+    public int hashCode() {
+        return (int) (userNo ^ (userNo >>> 32));
     }
 }

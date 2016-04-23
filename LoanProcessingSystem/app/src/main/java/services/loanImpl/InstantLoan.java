@@ -10,18 +10,26 @@ import services.LoanService;
 public class InstantLoan implements LoanService {
     @Override
     public Loan process(Customer customer, String paymentOption, int numberOfPayments) {
-        Loan loan = new Loan("Instant Loan",19);
-        loan.setCustomer(customer);
-        if(loan.getCustomer().isInstantApproval()){
-            loan.setApproved(true);
-            loan.setLoanAmount(loan.getCustomer().getRequestAmount());
-            loan.setDuration(paymentOption, numberOfPayments);
-            return loan;
+        if(customer.isInstantApproval()){
+            return new Loan
+                    .Builder()
+                    .type("Instant Loan")
+                    .interest(19)
+                    .customer(customer)
+                    .approved(true)
+                    .loanAmount(customer.getRequestAmount())
+                    .numberOfPayments(paymentOption, numberOfPayments)
+                    .build();
         }
         else
         {
-            loan.setApproved(false);
-            return loan;
+            return new Loan
+                    .Builder()
+                    .type("Instant Loan")
+                    .interest(19)
+                    .customer(customer)
+                    .approved(false)
+                    .build();
         }
-    }
+}
 }

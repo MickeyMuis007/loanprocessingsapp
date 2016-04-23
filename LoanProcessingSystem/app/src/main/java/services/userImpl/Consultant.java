@@ -9,7 +9,10 @@ import services.UserService;
 public class Consultant implements UserService{
     @Override
     public User getUser() {
-        User user = new User("Consultant");
+        User user = new User
+                .Builder()
+                .type("Consultant")
+                .build();
         return user;
     }
 }

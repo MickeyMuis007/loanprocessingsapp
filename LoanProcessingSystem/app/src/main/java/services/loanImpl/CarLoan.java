@@ -11,18 +11,28 @@ public class CarLoan implements LoanService {
 
     @Override
     public Loan process(Customer customer, String paymentOption, int numberOfPayments) {
-        Loan loan = new Loan("Car Loan",6.5);
-        loan.setCustomer(customer);
-        if(loan.getCustomer().isCarApproval()){
-            loan.setApproved(true);
-            loan.setLoanAmount(loan.getCustomer().getRequestAmount());
-            loan.setDuration(paymentOption, numberOfPayments);
-            return loan;
+        if(customer.isCarApproval()){
+            return new Loan
+                    .Builder()
+                    .type("Car Loan")
+                    .interest(6.5)
+                    .customer(customer)
+                    .approved(true)
+                    .loanAmount(customer.getRequestAmount())
+                    .numberOfPayments(paymentOption, numberOfPayments)
+                    .build();
         }
         else
         {
-            loan.setApproved(false);
-            return loan;
+            return new Loan
+                    .Builder()
+                    .type("Car Loan")
+                    .interest(6.5)
+                    .customer(customer)
+                    .approved(false)
+                    .loanAmount(0)
+                    .numberOfPayments(0)
+                    .build();
         }
     }
 }

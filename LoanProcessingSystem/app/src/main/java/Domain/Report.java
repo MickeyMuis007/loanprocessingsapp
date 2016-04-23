@@ -37,10 +37,18 @@ public class Report {
         this.userType = loan.getUser().getType();
     }
     private void setTransaction(){
-        this.interest = loan.getInterest();
-        this.totalAmount = loan.getTotalAmount();
-        this.loanAmount = loan.getLoanAmount();
-        this.monthlyPayment = loan.getTotalAmount()/loan.getNumberOfPayments();
+        if(loan.isApproved()) {
+            this.interest = loan.getInterest();
+            this.totalAmount = loan.getTotalAmount();
+            this.loanAmount = loan.getLoanAmount();
+            this.monthlyPayment = loan.getTotalAmount() / loan.getNumberOfPayments();
+        }
+        else{
+            this.interest = loan.getInterest();
+            this.totalAmount = 0;
+            this.loanAmount = loan.getLoanAmount();
+            this.monthlyPayment = 0;
+        }
     }
     private void setBranch(){
         this.branchNo = loan.getUser().getBranch().getBranchNo();
@@ -102,6 +110,7 @@ public class Report {
         String display = "";
         display += "Type: "+ getType() + "\n";
         display += "Loan Reference No: " + getLoan().getLoanReferenceNo() + "\n";
+        display += "Loan Type: " + getLoan().getType() + "\n";
         display += "Customer Name: " + getCustomerName() + "\n";
         display += "User Name: " + getUserName()+ "\n";
         display += "User No: " + getUserNo()+ "\n";
