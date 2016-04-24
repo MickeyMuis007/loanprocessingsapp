@@ -25,6 +25,9 @@ public class InstantLoanCheck implements SecurityService {
                     .instantApproval(false)
                     .build();
         }
-        return new SecurityCheck(customer);
+        return new SecurityCheck
+                .Builder()
+                .customer(customer)
+                .build();
     }
 }

@@ -24,6 +24,9 @@ public class HouseLoanCheck implements SecurityService {
                     .houseApproval(false)
                     .build();
         }
-        return new SecurityCheck(customer);
+        return new SecurityCheck
+                .Builder()
+                .customer(customer)
+                .build();
     }
 }

@@ -125,6 +125,10 @@ public class Customer {
                     .build();
             return this;
         }
+        public Builder fullName(FullName fullName){
+            this.fullName = fullName;
+            return this;
+        }
 
         public Builder carApproval(boolean value) {
             this.carApproval = value;
@@ -161,6 +165,10 @@ public class Customer {
                     .city(valueCity)
                     .postalCode(valuePostalCode)
                     .build();
+            return this;
+        }
+        public Builder address(Address address){
+            this.address = address;
             return this;
         }
 

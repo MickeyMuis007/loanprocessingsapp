@@ -24,6 +24,9 @@ public class CarLoanCheck implements SecurityService {
                     .carApproval(false)
                     .build();
         }
-        return new SecurityCheck(customer);
+        return new SecurityCheck
+                .Builder()
+                .customer(customer)
+                .build();
     }
 }
